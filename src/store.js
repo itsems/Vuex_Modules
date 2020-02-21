@@ -3,23 +3,58 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 const moduleUser = {
-    state: {},
-    mutations: {},
-    actions: {},
-    getters: {}
+    namespaced: true,
+    state: {
+        name: "emma",
+        age: 18
+    },
+    mutations: {
+        addAge(state, payload) {
+            state.age = state.age + payload
+        }
+    },
+    getters: {
+        GetAge(state) {
+            return state.age
+        },
+        GetRealAge(state, getters, rootState) {
+            return rootState.age
+        },
+        GetNextAge(state, getters, rootState) {
+            return rootState.another.NextyearAge
+        }
+    },
+    actions: {
+        sayHi() {
+            console.log('Hello from moduleUser')
+        }
+    }
 }
 
-const modulePurchase = {
-    state: {},
-    mutations: {},
-    actions: {}
+const moduleAnother = {
+    namespaced: true,
+    state: {
+        NextyearAge: 21
+    },
+    actions: {
+        sayHi() {
+            console.log('Hello from moduleAnother')
+        },
+        addYear({ commit }) {
+            console.log('action addYear in moduleAnother');
+            commit('user/addAge', 2, { root: true })
+        }
+    }
 }
 
-// 在 new Vuex Store 的時候，把modules加進來
 const store = new Vuex.Store({
+    state: {
+        age: 20,
+        gender: "female"
+    },
     modules: {
         user: moduleUser,
-        purchase: modulePurchase
+        another: moduleAnother
     }
 })
 
