@@ -6,7 +6,9 @@ const moduleUser = {
     namespaced: true,
     state: {
         name: "emma",
-        age: 18
+        age: 18,
+        gender: 'female',
+        addr: 'Taipei'
     },
     mutations: {
         addAge(state, payload) {
@@ -50,7 +52,6 @@ const moduleAnother = {
 const store = new Vuex.Store({
     state: {
         age: 20,
-        gender: "female"
     },
     modules: {
         user: moduleUser,
